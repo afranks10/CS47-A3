@@ -4,10 +4,69 @@ import { Themes } from "./assets/Themes";
 import { SpotifyColors } from "./assets/Themes/colors";
 import { StatusBar } from "react-native-web";
 import { getAlbumTracks, getMyTopTracks } from "./utils/apiOptions";
+import IndividualSongItem from "./renderSongItem";
+//import UserList from "./song.js"
+//import renderSongItem from "./renderSongItem";
+
+
+const renderSongItem = ({item, index}) => {
+  console.log("made it to render song item")
+  return (
+    <IndividualSongItem //own comoponent to redner
+      index = {index + 1}
+      songname = {item.name}
+      songindex = {item.track_number}
+      imageurl = {item.album.images[0].url}
+      length = {item.duration_ms}
+      albumtitle = {artist.album.name}
+      artistanme = {item.artist.name}
+    />);
+  }
+
+  const renderSong = (item, index) => {
+    //console.log(item)
+    //console.log(index)
+    console.log(item.item.duration_ms)
+    return (
+      <IndividualSongItem
+      tracknumber = {item.index}
+      songname = {item.item.name}
+      //tracknumber = {item.item.track_number}
+      //imageurl = {item.album.images[0].url}
+      duration = {item.item.duration_ms}
+      albumtitle = {"Norman Fucking Rockwell"}
+      artistname = {"Lana Del Rey"}
+      />
+      );
+  }
+
+  const UserList = ({tracks}) => {
+    console.log("made it to UserList")
+    return (
+      <View style = {styles.secondPage}> 
+        <View style = {styles.titleRow}>
+          <View style = {styles.IconView2}>
+          <Image
+            style = {styles.SpotifyIcon2}
+            source = {require('./assets/spotify-logo.png')}
+          />
+          </View>
+          <View style = {styles.Header}>
+            <Text style = {{color: 'white', fontWeight: 'bold', fontSize: 30, paddingEnd: 100,}}>My Top Tracks</Text>
+            <Text style = {{color: 'white'}}>{tracks.artist}</Text>
+          </View>
+        </View>
+        <FlatList
+          data = {tracks}
+          renderItem = {(item) => renderSong(item)}
+          keyExtractor = {(item, index) => index}
+        />
+      </View>
+    );
+    }
 
 
 const AuthButton = ({ authFunction }) => {
-
   return( <Pressable 
       //style = {styles.buttonStyle} 
       onPress={ authFunction }>
@@ -25,45 +84,8 @@ const AuthButton = ({ authFunction }) => {
   </Pressable>)
 };
 
-const renderSongItem = ({item, index}) => {
-  console.log(item)
-  (
-  <IndividualSongItem //own comoponent to redner
-    index = {index + 1}
-    songname = {item.name}
-    songindex = {item.track_number}
-    imageurl = {item.album.images[0].url}
-    length = {item.duration_ms}
-    albumtitle = {artist.album.name}
-    artistanme = {item.artist.name}
-  />
-);
-}
-
-const UserList = ({tracks}) => {
-  return (
-    <View style = {styles.secondPage}> 
-      <View style = {styles.titleRow}>
-        <View style = {styles.IconView2}>
-        <Image
-          style = {styles.SpotifyIcon2}
-          source = {require('./assets/spotify-logo.png')}
-        />
-        </View>
-        <View style = {styles.Header}>
-          <Text style = {{color: 'white', fontWeight: 'bold', fontSize: 30, paddingEnd: 100,}}>My Top Tracks</Text>
-        </View>
-      </View>
-      <FlatList>
-        data = {tracks}
-        renderItem = {(item) => {renderSongItem(item)}}
-        keyExtractor = {(index) => index}
-      </FlatList>
-    </View>
-  );
-  }
-
 export default function App() {
+  console.log("made it to app")
   // Pass in true to useSpotifyAuth to use the album ID (in env.js) instead of top tracks
   //token -- Boolean if you are authenticated
   //tracks: [{}] - tracks
