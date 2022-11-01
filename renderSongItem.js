@@ -10,6 +10,7 @@ import { millisToMinutesAndSeconds } from './utils';
 
   export default function IndividualSongItem({songname, songindex, tracknumber, imageurl, duration, albumtitle, artistname}) {
     const songDuration = millisToMinutesAndSeconds(duration);
+    console.log(imageurl)
     return (
       <View style = {styles.songitem}>
         <View style = {{alignItems: 'flex-start'}}>
@@ -18,6 +19,7 @@ import { millisToMinutesAndSeconds } from './utils';
         <View style = {styles.coverView}>
           <Image
             style = {styles.albumcover}
+            source = {{uri: imageurl}}
           />
         </View>
         <View style = {styles.songTitle}>
@@ -63,11 +65,18 @@ import { millisToMinutesAndSeconds } from './utils';
 
     },
 
+    albumcover: {
+      width: 35,
+      height: 30,
+
+    },
+
     coverView: {
-      backgroundColor: 'white',
+      //backgroundColor: 'white',
       height: '100%',
       width: '10%',
-      marginStart: 10,
+      marginStart: 15,
+
     },
 
   });

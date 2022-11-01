@@ -23,19 +23,16 @@ const renderSongItem = ({item, index}) => {
     />);
   }
 
-  const renderSong = (item, index) => {
-    //console.log(item)
-    //console.log(index)
-    console.log(item.item.duration_ms)
+  const renderSong = ({ item, index }) => {
     return (
       <IndividualSongItem
-      tracknumber = {item.index}
-      songname = {item.item.name}
+      tracknumber = {index}
+      songname = {item.name}
       //tracknumber = {item.item.track_number}
-      //imageurl = {item.album.images[0].url}
-      duration = {item.item.duration_ms}
-      albumtitle = {"Norman Fucking Rockwell"}
-      artistname = {"Lana Del Rey"}
+      imageurl = {item.album.images[0].url}
+      duration = {item.duration_ms}
+      albumtitle = {item.album.name}
+      artistname = {item.artists[0].name}
       />
       );
   }
